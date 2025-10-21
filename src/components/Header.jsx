@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <header className='p-4 border-b border-b-gray-200'>
       <div className='container mx-auto flex justify-between'>
-        <div className='flex gap-2 items-center'>
+        <div className='flex gap-2 items-center cursor-pointer'>
           <img src={logo} alt="this is a logo" />
           <p className='font-semibold'>SIMS PPOB</p>
         </div>
