@@ -15,3 +15,8 @@ export { default as profile } from './icons/profile.png';
 
 export { default as loginIllustration } from './illustrations/Illustrasi-Login.png';
 export { default as bgSaldo } from './illustrations/bgSaldo.png';
+export { default as banner1 } from './illustrations/Banner1.png';
+export { default as banner2 } from './illustrations/Banner2.png';
+export { default as banner3 } from './illustrations/Banner3.png';
+export { default as banner4 } from './illustrations/Banner4.png';
+export { default as banner5 } from './illustrations/Banner5.png';

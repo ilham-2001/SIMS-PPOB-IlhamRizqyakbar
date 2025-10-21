@@ -6,7 +6,7 @@ import { faAt, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 import useNavigateHelper from '../hooks/useNavigateHelper';
 
 const Registration = () => {
-    const navigateToPage = useNavigateHelper();
+    const { navigateToPage, _ } = useNavigateHelper();
 
   return (
     <main className='flex items-center'>
