@@ -26,7 +26,7 @@ const CustomInput = ({
   }
 
   return (
-    <div className={`flex flex-col gap-2 w-[50%] ${classNames}`}>
+    <div className={`flex flex-col gap-2 ${classNames || 'w-[50%]'}`}>
       {
         label?
         (
