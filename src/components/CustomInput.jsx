@@ -47,7 +47,7 @@ const CustomInput = ({
       } 
       </div>
       {
-        isValid? '': <small className='self-end text-[12px] text-red-600'>Password tidak sama</small> 
+        isValid? '': <small className='self-end text-[12px] text-red-600'>Password tidak sesuai</small> 
       }
     </div>
   )

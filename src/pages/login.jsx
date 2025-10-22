@@ -3,17 +3,23 @@ import { useState } from 'react';
 import { loginIllustration, logo } from '../assets/assets';
 
 import CustomInput from '../components/CustomInput';
+import Alert from '../components/Alert';
+
 import { faAt, faLock} from '@fortawesome/free-solid-svg-icons';
 
 import useNavigateHelper from '../hooks/useNavigateHelper';
 
 import { post } from '../utils/api';
 
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../slices/authSlice';
+
 const Login = () => {
   const [ form, setForm ] = useState({email: '', password: ''})
   const [ isValid, setIsValid ] = useState(true);
 
   const { navigateToPage, _ } = useNavigateHelper();
+  const dispatch = useDispatch();
 
   const setData = (inputData) => {
     const { name, value } = inputData;
@@ -24,14 +30,27 @@ const Login = () => {
 
   const onClickedLogin = async (e) => {
     e.preventDefault();
-    
-    const response = await post('/login', form);
-    console.log(response);
+
+    try {
+      const response = await post('/login', form);
+      console.log(response);
+
+      const token = response.data.data.token;
+      const user = form.email;
+
+      dispatch(loginSuccess({ user, token }));
+
+      navigateToPage('/');
+    } catch(err) {
+      setIsValid(false)
+      // setTimeout(() => setIsValid(false), 3000);
+    }
     
   }
 
   return (
     <main className='flex items-center'>
+      {alert.isValid? <Alert type="error" message="Password atau email tidak sesuai!"/> : ""}
       <div className='p-4 w-[60%] flex flex-col gap-4 justify-center'>
         <div className='flex flex-col gap-6 items-center'>
           <div className='flex gap-1 items-center'>

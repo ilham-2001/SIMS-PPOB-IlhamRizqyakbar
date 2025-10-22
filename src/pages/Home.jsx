@@ -3,6 +3,10 @@ import MainCard from '../components/MainCard';
 
 import '../assets/css/home.css'
 
+import useNavigateHelper from '../hooks/useNavigateHelper';
+
+import { useSelector } from 'react-redux';
+
 import { 
   game, 
   kurban, 
@@ -25,8 +29,19 @@ import {
   banner4,
   banner5,
 } from '../assets/assets';
+import { useEffect } from 'react';
 
 const Home = () => {
+
+  const { navigateToPage, _ } = useNavigateHelper()
+  const token = useSelector((state) => state.auth.token)
+
+  useEffect(() => {
+    if (!token) {
+      navigateToPage('/login');
+    }
+  }, [])
+
   return (
     <main>
       <Header />
