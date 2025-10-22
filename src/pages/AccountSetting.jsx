@@ -23,7 +23,10 @@ const AccountSetting = () => {
           <CustomInput icon={faUser} placeholder='Kristanto' label="Nama Depan"/>
           <CustomInput icon={faUser} placeholder='Wibowo' label="Nama Belakang"/>
 
-          <button className='bg-red-600 w-[50%] text-white font-medium px-6 py-3 rounded-md'>Simpan</button>
+          <div className='flex flex-col gap-4 w-full items-center'>
+            <button className='bg-red-600 w-[50%] text-white font-medium px-6 py-3 rounded-md'>Edit Profil</button>          
+            <button className='w-[50%] text-red-600 border border-red-600 font-medium px-6 py-3 rounded-md'>Logout</button>
+          </div>
         </form>
       </div>
     </main>
