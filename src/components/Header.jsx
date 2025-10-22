@@ -6,12 +6,12 @@ const links = [
   {
     id: 1,
     name: 'Top up',
-    uri: '',
+    uri: '/topup',
   },
     {
     id: 2,
     name: 'Transaction',
-    uri: '',
+    uri: '/transactions',
   },
     {
     id: 3,
