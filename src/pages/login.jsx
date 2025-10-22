@@ -18,7 +18,7 @@ const Login = () => {
   const [ form, setForm ] = useState({email: '', password: ''})
   const [ isValid, setIsValid ] = useState(true);
 
-  const { navigateToPage, _ } = useNavigateHelper();
+  const { navigateToPage, _, state } = useNavigateHelper();
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.auth.token)

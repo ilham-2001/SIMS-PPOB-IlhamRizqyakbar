@@ -2,28 +2,34 @@ import MainCard from '../components/MainCard'
 import Header from '../components/Header';
 import CustomInput from '../components/CustomInput';
 
+import useNavigateHelper from '../hooks/useNavigateHelper';
+
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 const Payment = () => {
+  const { navigateToPage, _, state } = useNavigateHelper()
+
+  console.log(state);
+  
   return (
     <main>
       <Header />
       <div className='container mx-auto flex flex-col gap-12 mt-8'>
         <MainCard />
-        <PaymentForm />
+        <PaymentForm data={state}/>
       </div>
     </main>
   )
 }
 
-const PaymentForm = ({ paymentType, icon, tariff, code }) => {
+const PaymentForm = ({ data }) => {
   return (
-    <div>
+    <div className='flex flex-col gap-8'>
       <div className='flex flex-col gap-2'>
         <h4>Pembayaran</h4>
-        <div className='flex gap-1'>
-          <img src={icon} alt="icon payment" />
-          <p>{paymentType}</p>
+        <div className='flex gap-1 items-center'>
+          <img className='w-[36px]' src={data.service_icon} alt="icon payment" />
+          <p className='font-medium text-[20px]'>{data.service_name}</p>
         </div>
       </div>
       <form className='flex flex-col gap-2'>

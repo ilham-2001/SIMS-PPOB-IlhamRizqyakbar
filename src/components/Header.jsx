@@ -21,7 +21,7 @@ const links = [
 ]
 
 const Header = () => {
-  const { navigateToPage, currentPath } = useNavigateHelper();
+  const { navigateToPage, currentPath, _ } = useNavigateHelper();
   
   return (
     <header className='p-4 border-b border-b-gray-200'>

@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 const Home = () => {
   const [ profile, setProfile ] = useState(null);
 
-  const { navigateToPage, _ } = useNavigateHelper()
+  const { navigateToPage, _, state } = useNavigateHelper()
   const token = useSelector((state) => state.auth.token)
 
   useEffect(() => {    
@@ -45,8 +45,8 @@ const ServicesList = () => {
 
   const { navigateToPage } = useNavigateHelper();
 
-  const toPaymentPage = () => {
-    navigateToPage('/payment');
+  const toPaymentPage = (data) => {
+    navigateToPage('/payment', data);
   }
 
   const getServicesData = async () => {
@@ -61,12 +61,12 @@ const ServicesList = () => {
 
   return (
     <div className='flex justify-between'>
-      {services.map((it, index) => {
+      {services.map(it => {
         return (
           <div 
             className='flex text-center flex-col gap-1 cursor-pointer max-w-[70px] max-h-[70px]' 
             key={it.service_code}
-            onClick={() => toPaymentPage()}
+            onClick={() => toPaymentPage(it)}
             >
             <img src={it.service_icon} alt={it.service_name} />
             <p className='text-[12px]'>{it.service_name}</p>

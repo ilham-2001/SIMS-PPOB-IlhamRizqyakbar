@@ -17,7 +17,7 @@ const Registration = () => {
   const [ isValid, setIsValid ] = useState(true);
   const [ alert, setAlert ] = useState({visible: false, type: '', message: ''});
 
-  const { navigateToPage, _ } = useNavigateHelper();
+  const { navigateToPage, _, state } = useNavigateHelper();
 
   const setData = (inputData) => {
     const { name, value } = inputData;    
