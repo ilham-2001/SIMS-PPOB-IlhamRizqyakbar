@@ -8,8 +8,6 @@ import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 const Payment = () => {
   const { navigateToPage, _, state } = useNavigateHelper()
-
-  console.log(state);
   
   return (
     <main>
@@ -32,8 +30,8 @@ const PaymentForm = ({ data }) => {
           <p className='font-medium text-[20px]'>{data.service_name}</p>
         </div>
       </div>
-      <form className='flex flex-col gap-2'>
-          <CustomInput name="amount" icon={faMoneyBill} classNames="w-[100%]"/>
+      <form className='flex flex-col gap-2 mt-4'>
+          <CustomInput name="amount" value={data.service_tariff} icon={faMoneyBill} classNames="w-[100%]"/>
           <button className='bg-red-600 w-[100%] text-white font-medium px-6 py-3 rounded-md'>Bayar</button>
       </form>
       

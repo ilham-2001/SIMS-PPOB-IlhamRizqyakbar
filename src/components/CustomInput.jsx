@@ -5,7 +5,8 @@ import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 
 const CustomInput = ({
-  name, 
+  name,
+  value='',
   placeholder, 
   icon, 
   type, 
@@ -14,6 +15,7 @@ const CustomInput = ({
   label,
   classNames
   }) => {
+  const [ stateValue, setValue ] = useState(value);
   const [ hide, setHide ] = useState(true);
   
   const styleBorder = isValid? 'border-gray-400': 'border-red-600';
@@ -37,7 +39,12 @@ const CustomInput = ({
           className='outline-none placeholder-gray-400 w-full'
           placeholder={placeholder}
           type={type === 'password' && hide? 'password': 'text'}
-          onInput={(e) => sendData({name: name, value: e.target.value})}
+          onInput={(e) => {
+            const value =  e.target.value
+            sendData({name: name, value:value })
+            setValue(value)
+          }}
+          value={stateValue}
         />
       {
         type === "password"? 
