@@ -11,7 +11,8 @@ const CustomInput = ({
   type, 
   sendData, 
   isValid=true, 
-  label 
+  label,
+  classNames
   }) => {
   const [ hide, setHide ] = useState(true);
   
@@ -23,7 +24,7 @@ const CustomInput = ({
   }
 
   return (
-    <div className='flex flex-col gap-2 w-[50%]'>
+    <div className={`flex flex-col gap-2 w-[50%] ${classNames}`}>
       {
         label?
         (

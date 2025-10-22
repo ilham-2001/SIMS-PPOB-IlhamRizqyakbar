@@ -43,6 +43,12 @@ export default Home;
 const ServicesList = () => {
   const [ services, setServices ] = useState([]);
 
+  const { navigateToPage } = useNavigateHelper();
+
+  const toPaymentPage = () => {
+    navigateToPage('/payment');
+  }
+
   const getServicesData = async () => {
     const services = await get('/services', true);
 
@@ -57,7 +63,11 @@ const ServicesList = () => {
     <div className='flex justify-between'>
       {services.map((it, index) => {
         return (
-          <div className='flex text-center flex-col gap-1 cursor-pointer max-w-[70px] max-h-[70px]' key={it.service_code}>
+          <div 
+            className='flex text-center flex-col gap-1 cursor-pointer max-w-[70px] max-h-[70px]' 
+            key={it.service_code}
+            onClick={() => toPaymentPage()}
+            >
             <img src={it.service_icon} alt={it.service_name} />
             <p className='text-[12px]'>{it.service_name}</p>
           </div>
