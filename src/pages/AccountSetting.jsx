@@ -2,13 +2,25 @@ import Header from '../components/Header';
 import CustomInput from '../components/CustomInput';
 
 import { profile } from '../assets/assets';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAt, faUser, faPen } from '@fortawesome/free-solid-svg-icons';
 
-const AccountSetting = () => {
-  
-  const onLogOutClicked = () => {
+import { useDispatch } from 'react-redux';
+import useNavigateHelper from '../hooks/useNavigateHelper';
 
+import { logout } from '../slices/authSlice';
+
+const AccountSetting = () => {
+  const dispatch = useDispatch();
+  const { navigateToPage } = useNavigateHelper();
+  
+  const onLogOutClicked = (e) => {
+    e.preventDefault();
+
+    localStorage.removeItem('session');
+    dispatch(logout())
+    navigateToPage('/login');
   }
 
   return (
@@ -30,7 +42,7 @@ const AccountSetting = () => {
 
           <div className='flex flex-col gap-4 w-full items-center'>
             <button className='bg-red-600 w-[50%] text-white font-medium px-6 py-3 rounded-md'>Edit Profil</button>          
-            <button className='w-[50%] text-red-600 border border-red-600 font-medium px-6 py-3 rounded-md'>Logout</button>
+            <button className='w-[50%] text-red-600 border border-red-600 font-medium px-6 py-3 rounded-md' onClick={onLogOutClicked}>Logout</button>
           </div>
         </form>
       </div>

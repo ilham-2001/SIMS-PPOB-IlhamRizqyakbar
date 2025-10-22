@@ -9,12 +9,9 @@ async function get(path, useAuth=false) {
   if (useAuth) {
     const session = JSON.parse(localStorage.getItem("session"));
     config.headers = {
-      Authorization: `Bearer ${session.token}`,
+      Authorization: `Bearer ${session?.token}`,
     };
-  }
-
-  console.log(config);
-  
+  }  
   return await axios.get(BASE_URL + path, config)
 }
 

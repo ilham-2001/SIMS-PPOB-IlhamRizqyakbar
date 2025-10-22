@@ -12,11 +12,13 @@ import { get } from '../utils/api';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
+  const [ profile, setProfile ] = useState(null);
+
   const { navigateToPage, _ } = useNavigateHelper()
   const token = useSelector((state) => state.auth.token)
 
-
   useEffect(() => {    
+    // TODO: problem when token is not available but somehow the api still get called on main
     if (!token) {
       navigateToPage('/login');
     }
@@ -53,10 +55,10 @@ const ServicesList = () => {
 
   return (
     <div className='flex justify-between'>
-      {services.map(it => {
+      {services.map((it, index) => {
         return (
-          <div className='flex text-center flex-col gap-1 cursor-pointer max-w-[70px] max-h-[70px]' key={it.id}>
-            <img src={it.service_icon} alt={it.service_code} />
+          <div className='flex text-center flex-col gap-1 cursor-pointer max-w-[70px] max-h-[70px]' key={it.service_code}>
+            <img src={it.service_icon} alt={it.service_name} />
             <p className='text-[12px]'>{it.service_name}</p>
           </div>
         )
