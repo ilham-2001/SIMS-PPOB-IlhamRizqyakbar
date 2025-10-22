@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const session = JSON.parse(localStorage.getItem('session'));
+
 const initialState = {
-  user: null,
-  token: null,
-  isAuthenticated: false,
+  user: session?.email || null,
+  token: session?.token || null,
+  isAuthenticated: !!session?.token,
 };
 
 const authSlice = createSlice({

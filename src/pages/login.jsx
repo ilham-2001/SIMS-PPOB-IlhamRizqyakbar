@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { loginIllustration, logo } from '../assets/assets';
 
@@ -11,7 +11,7 @@ import useNavigateHelper from '../hooks/useNavigateHelper';
 
 import { post } from '../utils/api';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from '../slices/authSlice';
 
 const Login = () => {
@@ -20,6 +20,14 @@ const Login = () => {
 
   const { navigateToPage, _ } = useNavigateHelper();
   const dispatch = useDispatch();
+
+  const token = useSelector((state) => state.auth.token)
+
+  useEffect(() => {
+    if (token) {
+      navigateToPage('/');
+    }
+  }, []);
 
   const setData = (inputData) => {
     const { name, value } = inputData;
@@ -33,16 +41,18 @@ const Login = () => {
 
     try {
       const response = await post('/login', form);
-      console.log(response);
 
       const token = response.data.data.token;
       const user = form.email;
 
       dispatch(loginSuccess({ user, token }));
+      localStorage.setItem('session', JSON.stringify({ user, token }))
 
       navigateToPage('/');
     } catch(err) {
       setIsValid(false)
+
+      // TODO: FIX LATER
       // setTimeout(() => setIsValid(false), 3000);
     }
     

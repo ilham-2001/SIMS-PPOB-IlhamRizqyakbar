@@ -6,6 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAt, faUser, faPen } from '@fortawesome/free-solid-svg-icons';
 
 const AccountSetting = () => {
+  
+  const onLogOutClicked = () => {
+
+  }
+
   return (
     <main>
       <Header />
