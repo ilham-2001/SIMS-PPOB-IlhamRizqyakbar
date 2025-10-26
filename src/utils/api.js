@@ -27,6 +27,19 @@ async function post(path, payload, useAuth=false) {
   return await axios.post(BASE_URL + path, payload, config)
 }
 
+async function put(path, payload, useAuth=false) {
+    const config = {};
+
+    if (useAuth) {
+    const session = JSON.parse(localStorage.getItem("session"));
+    config.headers = {
+      Authorization: `Bearer ${session?.token}`,
+    };
+  }  
+  return await axios.put(BASE_URL + path, payload, config)
+}
 
 
-export { post, get }
+
+
+export { post, get, put }

@@ -85,9 +85,9 @@ const TopUpForm = () => {
         "top_up_amount": parseInt(amount)
       };
 
+      // TODO: response variable not used, might just delete it later
       const response = await post('/topup', payload, true);
 
-      console.log(response);
       setAlert(true);
       setTimeout(() => {
         setAlert(false);

@@ -13,7 +13,8 @@ const CustomInput = ({
   sendData, 
   isValid=true, 
   label,
-  classNames
+  classNames,
+  readOnly=false
   }) => {
   const [ stateValue, setValue ] = useState(value);
   const [ hide, setHide ] = useState(true);
@@ -39,7 +40,8 @@ const CustomInput = ({
       }
       <div className={`flex gap-2 items-center border rounded-md p-4 ${styleBorder}`}>
         <FontAwesomeIcon className={`${styleIcon}`} icon={icon}/>
-        <input 
+        <input
+          disabled={readOnly} 
           className='outline-none placeholder-gray-400 w-full'
           placeholder={placeholder}
           type={type === 'password' && hide? 'password': 'text'}
