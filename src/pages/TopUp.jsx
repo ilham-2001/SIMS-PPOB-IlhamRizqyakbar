@@ -2,10 +2,12 @@ import Header from '../components/Header';
 import MainCard from '../components/MainCard';
 
 import CustomInput from '../components/CustomInput';
+import Alert from '../components/Alert';
 
 import { faMoneyBill } from '@fortawesome/free-solid-svg-icons';
 
 import { post } from '../utils/api';
+import useNavigateHelper from '../hooks/useNavigateHelper';
 
 import { useState } from 'react';
 
@@ -60,6 +62,9 @@ const optionalAmount = [
 
 const TopUpForm = () => {
   const [amount, setAmount ] = useState(0);
+  const [ alert, setAlert ] = useState(false);
+
+  const { navigateToPage, _, state } = useNavigateHelper();
 
   const setData = (inputData) => {    
     if (inputData.value) {
@@ -79,10 +84,15 @@ const TopUpForm = () => {
       const payload = {
         "top_up_amount": parseInt(amount)
       };
-      
+
       const response = await post('/topup', payload, true);
 
       console.log(response);
+      setAlert(true);
+      setTimeout(() => {
+        setAlert(false);
+        navigateToPage('/');
+      }, 3000);
 
     } catch (err) {
 
@@ -92,6 +102,7 @@ const TopUpForm = () => {
 
   return (
     <div className='flex gap-4 w-full'>
+      {alert? <Alert type={"success"} message={`Berhasil melakukan top sebesar ${amount}`}/>: ''}
       {/* Input and Button Section */}
       <form className='flex flex-col gap-2 w-[70%]'>
         <CustomInput name="topup" icon={faMoneyBill} classNames="w-[100%]" sendData={setData} value={amount}/>
