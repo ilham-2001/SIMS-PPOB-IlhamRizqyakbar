@@ -3,8 +3,10 @@ import axios from 'axios'
 const BASE_URL = 'https://take-home-test-api.nutech-integrasi.com';
 
 
-async function get(path, useAuth=false) {
-  const config = {};
+async function get(path, useAuth=false, params={}) {
+  const config = {
+    params: params
+  };
 
   if (useAuth) {
     const session = JSON.parse(localStorage.getItem("session"));

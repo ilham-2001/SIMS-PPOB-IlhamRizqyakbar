@@ -107,7 +107,7 @@ const TopUpForm = () => {
       <form className='flex flex-col gap-2 w-[70%]'>
         <CustomInput name="topup" icon={faMoneyBill} classNames="w-[100%]" sendData={setData} value={amount}/>
         <button 
-          disabled={amount === 0 || amount > 1_000_000} 
+          disabled={(amount === 0 || amount > 1_000_000)} 
           className='bg-red-600 w-[100%] text-white font-medium px-6 py-3 rounded-md disabled:bg-gray-400'
           onClick={onClickedTopUp}
           >
