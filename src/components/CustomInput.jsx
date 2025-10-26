@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
@@ -20,6 +20,10 @@ const CustomInput = ({
   
   const styleBorder = isValid? 'border-gray-400': 'border-red-600';
   const styleIcon = isValid? 'text-gray-400': 'text-red-600';
+
+  useEffect(() => {
+    setValue(value);
+  }, [value])
 
   const toggleHide = () => {
     setHide(!hide);

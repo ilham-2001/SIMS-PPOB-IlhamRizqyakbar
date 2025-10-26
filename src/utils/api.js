@@ -15,8 +15,16 @@ async function get(path, useAuth=false) {
   return await axios.get(BASE_URL + path, config)
 }
 
-async function post(path, payload) {
-  return await axios.post(BASE_URL + path, payload)
+async function post(path, payload, useAuth=false) {
+    const config = {};
+
+    if (useAuth) {
+    const session = JSON.parse(localStorage.getItem("session"));
+    config.headers = {
+      Authorization: `Bearer ${session?.token}`,
+    };
+  }  
+  return await axios.post(BASE_URL + path, payload, config)
 }
 
 
