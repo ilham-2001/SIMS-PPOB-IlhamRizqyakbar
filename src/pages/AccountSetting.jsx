@@ -27,6 +27,7 @@ const AccountSetting = () => {
   const getUserData = async () => {
     const user = await get('/profile', true);
     
+    setForm({ first_name: user.data.data.first_name, last_name: user.data.data.last_name });
     setUser(user.data.data)
   }
 
