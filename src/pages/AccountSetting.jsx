@@ -12,7 +12,7 @@ import useNavigateHelper from '../hooks/useNavigateHelper';
 
 import { logout } from '../slices/authSlice';
 
-import { get, put } from '../utils/api';
+import { get, put, multipartDataPut } from '../utils/api';
 import { useEffect, useState, useRef } from 'react';
 
 const AccountSetting = () => {
@@ -20,7 +20,7 @@ const AccountSetting = () => {
   const [ user, setUser ] = useState(null);
   const [isEdit, setIsEdit ] = useState(false);
   const [ alert, setAlert ] = useState({visible: false, type: '', message: ''});
-  const [previewPic, setPreviewPic] = useState(null);
+  const [profilePic, setprofilePic] = useState({preview: null, file: null});
 
   const fileInputRef = useRef(null);
 
@@ -64,13 +64,13 @@ const AccountSetting = () => {
   }
 
   const onFileChange = (e) => {
+    // flow : edit need to be true else callback is null -> upload image when save button is clicked
     const file = e.target.files[0];
-    console.log(file);
     
     if (file) {
       // set for preview, experimental
       const imageURL = URL.createObjectURL(file);
-      setPreviewPic(imageURL)
+      setprofilePic({preview: imageURL, file: file });
     }
   };
 
@@ -79,6 +79,7 @@ const AccountSetting = () => {
 
     try {
       const response = await put('/profile/update', form, true);
+      const imageUpload = await multipartDataPut(profilePic.file);
       
       setAlert({ visible: true, message: `Berhasil melakukan perubahan!`, type: 'success' });
       setIsEdit(false);
@@ -87,7 +88,7 @@ const AccountSetting = () => {
         navigateToPage('/account');
       }, 3000);
 
-      } catch (err) {        
+      } catch (err) {                
         setAlert({ visible: true, message: `Gagal melakukan perubahan!`, type: 'error' });
         setTimeout(() => setAlert({ visible: false, message: '', type: '' }), 3000);
       }
@@ -100,7 +101,12 @@ const AccountSetting = () => {
         {alert.visible? <Alert type={alert.type} message={alert.message}/>: ''}
         <div className='flex flex-col gap-2 items-center'>
           <div className='relative'>
-            <FontAwesomeIcon onClick={onClickedSetProfilePicture} className='absolute bottom-0 right-0 border rounded-full p-1 bg-white cursor-pointer' icon={faPen}/>
+            <FontAwesomeIcon 
+              onClick={ isEdit? onClickedSetProfilePicture: null } 
+              className='absolute bottom-0 right-0 border rounded-full p-1 bg-white cursor-pointer' 
+              icon={faPen}
+
+            />
             <input
               type="file"
               accept="image/*"
@@ -108,7 +114,7 @@ const AccountSetting = () => {
               onChange={onFileChange}
               className="hidden"
             />
-            <img className='w-[120px]' src={previewPic? previewPic:  user?.profile_image} alt="profile image" />
+            <img className='w-[120px]' src={profilePic.preview? profilePic.preview:  user?.profile_image} alt="profile image" />
           </div>
           <h3 className='font-medium text-[30px]'>{`${user?.first_name} ${user?.last_name}`}</h3>
         </div>

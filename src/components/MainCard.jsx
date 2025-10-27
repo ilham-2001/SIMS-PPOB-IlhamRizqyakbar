@@ -25,7 +25,7 @@ const MainCard = () => {
   return (
     <main className='flex justify-between'>
       <div className='flex flex-col gap-4'>
-        <img className='max-w-[64px]' src={profile} alt="profile image" />
+        <img className='max-w-[64px]' src={userProfile?.profile_image} alt="profile image" />
         <div className='flex flex-col gap-1'>
           <p>Selamat datang,</p>
           <h3 className='font-medium text-[32px] leading-none'>{userProfile?.full_name}</h3>

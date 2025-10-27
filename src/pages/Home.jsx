@@ -12,8 +12,6 @@ import { get } from '../utils/api';
 import { useEffect, useState } from 'react';
 
 const Home = () => {
-  const [ profile, setProfile ] = useState(null);
-
   const { navigateToPage, _, state } = useNavigateHelper()
   const token = useSelector((state) => state.auth.token)
 

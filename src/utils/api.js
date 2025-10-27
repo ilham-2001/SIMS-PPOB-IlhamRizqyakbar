@@ -41,7 +41,23 @@ async function put(path, payload, useAuth=false) {
   return await axios.put(BASE_URL + path, payload, config)
 }
 
+async function multipartDataPut(file) {  
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const session = JSON.parse(localStorage.getItem("session"));
+    const response = await axios.put(BASE_URL + "/profile/image", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${session?.token}`,
+      },
+    });
+
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 
-
-export { post, get, put }
+export { post, get, put, multipartDataPut }
