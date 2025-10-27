@@ -13,13 +13,16 @@ import useNavigateHelper from '../hooks/useNavigateHelper';
 import { logout } from '../slices/authSlice';
 
 import { get, put } from '../utils/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const AccountSetting = () => {
   const [ form, setForm ] = useState({ first_name: '', last_name: '' });
   const [ user, setUser ] = useState(null);
   const [isEdit, setIsEdit ] = useState(false);
   const [ alert, setAlert ] = useState({visible: false, type: '', message: ''});
+  const [previewPic, setPreviewPic] = useState(null);
+
+  const fileInputRef = useRef(null);
 
   const dispatch = useDispatch();
   const { navigateToPage } = useNavigateHelper();
@@ -56,6 +59,21 @@ const AccountSetting = () => {
     setIsEdit(true);
   }
 
+  const onClickedSetProfilePicture = () => {
+    fileInputRef.current.click();    
+  }
+
+  const onFileChange = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    
+    if (file) {
+      // set for preview, experimental
+      const imageURL = URL.createObjectURL(file);
+      setPreviewPic(imageURL)
+    }
+  };
+
   const onClickedSaveChanges = async (e) => {
     e.preventDefault();
 
@@ -82,8 +100,15 @@ const AccountSetting = () => {
         {alert.visible? <Alert type={alert.type} message={alert.message}/>: ''}
         <div className='flex flex-col gap-2 items-center'>
           <div className='relative'>
-            <FontAwesomeIcon className='absolute bottom-0 right-0 border rounded-full p-1 bg-white cursor-pointer' icon={faPen}/>
-            <img className='w-[120px]' src={user?.profile_image} alt="profile image" />
+            <FontAwesomeIcon onClick={onClickedSetProfilePicture} className='absolute bottom-0 right-0 border rounded-full p-1 bg-white cursor-pointer' icon={faPen}/>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={onFileChange}
+              className="hidden"
+            />
+            <img className='w-[120px]' src={previewPic? previewPic:  user?.profile_image} alt="profile image" />
           </div>
           <h3 className='font-medium text-[30px]'>{`${user?.first_name} ${user?.last_name}`}</h3>
         </div>

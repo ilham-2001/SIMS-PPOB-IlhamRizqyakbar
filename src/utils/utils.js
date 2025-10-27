@@ -9,4 +9,10 @@ function validateInput(obj) {
   return true;
 }
 
-export { validateInput };
+function toBase64String(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+  });
+}
+
+export { validateInput, toBase64String };
